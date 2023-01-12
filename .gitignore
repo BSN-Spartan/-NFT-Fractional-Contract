@@ -1,0 +1,7 @@
+/.vscode/
+/cache/
+/node_modules/
+/artifacts/
+/.idea/
+.DS_Store
+/bin/
