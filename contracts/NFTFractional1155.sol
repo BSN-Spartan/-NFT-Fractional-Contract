@@ -38,20 +38,20 @@ contract TokenFractional1155 is ERC1155 {
     constructor() ERC1155("") {}
 
     /**
-     * @dev 拆分NFT
+     * @dev NFT fractionalization
      * 
      * Requirements: 
-     * - `待拆分的NFT的Owner必须为sender，并且已经授权给该合约` 
+     * - `The owner of the NFT must be the sender, and has already set approval to this contract for NFT fractionalization.`
      * 
-     * @param  erc721address 需要拆分的NFT合约地址
-     * @param  erc721tokenId 需要拆分的NFT Token ID
-     * @param  amount 拆分的份额
+     * @param  erc721address - the address of erc-721 contract that mints the NFT
+     * @param  erc721tokenId - the NFT ID
+     * @param  amount - the number of tokens (NFT fractions)
      * @param  data data
      * 
      */
     function fractional(address erc721address, uint256 erc721tokenId, uint256 amount,bytes memory data) public {
 
-        require(amount>0,"amount must greater than zero");
+        require(amount>0,"The number of tokens must be greater than 0");
 
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
@@ -59,7 +59,7 @@ contract TokenFractional1155 is ERC1155 {
         IERC721 erc721 = IERC721(erc721address);
 
         erc721.transferFrom(_msgSender(),  address(this), erc721tokenId);
-        require(erc721.ownerOf(erc721tokenId)==address(this),"check failed");
+        require(erc721.ownerOf(erc721tokenId)==address(this),"Failed to transfer the ownership of the NFT");
 
         _erc721[tokenId].erc721 =  erc721;
         _erc721[tokenId].tokenId = erc721tokenId;
@@ -77,13 +77,12 @@ contract TokenFractional1155 is ERC1155 {
     }
 
     /**
-     * @dev 组合NFT，并转移给执行地址
+     * @dev Compose the tokens (NFT fractions)
      * 
      * Requirements: 
-     * - `sender拥有该Token的所有份额` 
-     * - `` 
-     * @param  to 组合后的NFT转移地址
-     * @param  tokenId 组合的token Id
+     * - `The sender owns all tokens (NFT fractions)`  
+     * @param  to - the address to which the composed NFT will be transferred
+     * @param  tokenId - the token ID of the NFT fractions
      * 
      */
     function compose(address to,uint256 tokenId) public {
@@ -114,9 +113,9 @@ contract TokenFractional1155 is ERC1155 {
      * Requirements: 
      * - `` 
      * - `` 
-     * @param  tokenId 查询的Token ID
+     * @param  tokenId - the token ID of NFT fractions
      * 
-     * @return 该token的总数 
+     * @return  the total number of tokens (NFT fractions)
      */
     function totalSupply(uint256 tokenId) external view returns (uint256) {
         
@@ -127,13 +126,13 @@ contract TokenFractional1155 is ERC1155 {
     }
 
     /**
-     * @dev  查询NFT所对应的Token ID
+     * @dev  Query the Token ID corresponding to the NFT
      * 
      * Requirements: 
      * - `` 
      * - `` 
-     * @param  erc721address NFT 合约地址
-     * @param  erc721tokenId NFT ID
+     * @param  erc721address - the address of erc-721 contract that mints the NFT
+     * @param  erc721tokenId - NFT ID
      * 
      * @return  token ID
      */
@@ -145,11 +144,11 @@ contract TokenFractional1155 is ERC1155 {
     }
 
     /**
-     * @dev 查询Token对应的NFT的合约地址以及TokenID 
+     * @dev Query the Token ID and its corresponding address of the erc-721 contract 
      * 
-     * @param  tokenId 查询的Token ID
+     * @param  tokenId - Token ID
      * 
-     * @return  NFT的合约地址以及ID 
+     * @return  token ID and the address of the erc-721 contract
      */
     function tokenOf (uint256 tokenId) external view returns(address,uint256) {
         

@@ -20,26 +20,26 @@ contract TokenFractional20 is ERC20, Ownable {
     constructor(string memory name_, string memory symbol_) ERC20(name_, symbol_) {}
 
     /**
-     * @dev NFT碎片化操作 
+     * @dev NFT fractionalization 
      * 
-     * @param  erc721 需要碎片化的NFT合约地址
-     * @param  tokenId 需要碎片化的NFT Token ID
-     * @param  amount 碎片化之后的份额
+     * @param  erc721 - the address of erc-721 contract that mints the NFT
+     * @param  tokenId - the NFT ID
+     * @param  amount - the number of the tokens (NFT fractions)
      * 
      */
     function fractional(address erc721, uint256 tokenId, uint256 amount) public onlyOwner {
         
-        require(!_inited,"contract only fractional once");
+        require(!_inited,"The contract is already in use");
 
-        require(amount > 0,"amount must greater than zero");
+        require(amount > 0,"The number of tokens must be greater than 0");
 
         _erc721 = IERC721(erc721);
         
-        require(_erc721.ownerOf(tokenId)==_msgSender(),"caller must be NFT owner");
+        require(_erc721.ownerOf(tokenId)==_msgSender(),"The caller must be the owner of the NFT");
         
         _erc721.transferFrom(_msgSender(),  address(this), tokenId);
 
-        require(_erc721.ownerOf(tokenId)==address(this),"check failed");
+        require(_erc721.ownerOf(tokenId)==address(this),"Failed to transfer the ownership of the NFT");
 
         _tokenId = tokenId;
 
@@ -52,20 +52,20 @@ contract TokenFractional20 is ERC20, Ownable {
     }
 
     /**
-     * @dev 重新组合NFT 
+     * @dev Compose the tokens (NFT fractions)
      * 
      * Requirements: 
      * - `` 
      * - `` 
-     * @param to 组合后的NFT转移的地址 
+     * @param to - the address to which the composed NFT will be transferred
      */
     function compose(address to) public {
 
-        require(to !=address(0),"to can not be zero address");
+        require(to !=address(0),"to cannot be 0 address");
 
         address sender = _msgSender();
 
-        require(this.balanceOf(sender) == this.totalSupply(),"Not owning all the tokens");
+        require(this.balanceOf(sender) == this.totalSupply(),"Not owning all tokens");
 
         _erc721.transferFrom(address(this), to, _tokenId);
 
@@ -78,7 +78,7 @@ contract TokenFractional20 is ERC20, Ownable {
     }
 
     function token() public view returns(address,uint256) {
-        require(_inited,"NFT do not inited");
+        require(_inited,"The NFT is not initialized");
         return (address(_erc721),_tokenId);
     }
     
