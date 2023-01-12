@@ -1,1 +1,1 @@
-# -NFT-Fractional-Contract
+# NFT-Fractional-Contract
