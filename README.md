@@ -7,7 +7,6 @@ In short, the NFT fractionalization process is equivalent to "asset redistributi
 ## Prerequisite
 
 Before using a smart contract, it is important to have a basic understanding of Ethereum and Solidity.
-For a comprehensive guide on getting started with smart contracts, please see our [Beginner's Guide](https://github.com/BSN-Spartan/BeginnerGuide).
 It is also necessary to understand [ERC20](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/a55b7d13722e7ce850b626da2313f3e66ca1d101/contracts/token/ERC20), [ERC721](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/a55b7d13722e7ce850b626da2313f3e66ca1d101/contracts/token/ERC721) and [ERC1155](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/a55b7d13722e7ce850b626da2313f3e66ca1d101/contracts/token/ERC1155) standards. Before deploying this contract, developers need the ability to deploy NFT contracts and generate NFTs.
 
 ## Overview
