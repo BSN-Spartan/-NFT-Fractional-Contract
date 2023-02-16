@@ -109,4 +109,4 @@ Data will not be returned after calling this function, but you can observe the f
 
 ## License
 
-Spartan-NFT Contracts is released under the [Spartan License](https://github.com/BSN-Spartan/NFT/blob/main/LICENSE).
+Spartan-NFT Contracts is released under the [Spartan License](https://github.com/BSN-Spartan/Beginner-Level-Contracts/blob/main/Spartan%20License.md).
